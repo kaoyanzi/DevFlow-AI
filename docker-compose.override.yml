@@ -1,0 +1,17 @@
+# 本机适配：Docker Hub 上的官方 minio/minio 已下架，quay.io 源返回 unauthorized，
+# 因此改用仍可公开拉取的 bitnamilegacy/minio。
+# Bitnami 镜像要求 MINIO_ROOT_USER / MINIO_ROOT_PASSWORD，这里一并补齐，凭据与原来一致。
+# docker compose 会自动叠加读取本文件，无需改动原始 docker-compose.yml。
+services:
+  minio:
+    image: bitnamilegacy/minio:latest
+    # Bitnami 镜像默认以非 root 用户(1001)运行，命名卷目录属 root，会出现 file access denied
+    # 本地开发环境直接用 root 启动即可。
+    user: "0:0"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-minioadmin}
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minioadmin}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-minioadmin}
+      MINIO_DEFAULT_BUCKETS: milvus-bucket
+    command: minio server /minio_data --console-address ":9001"

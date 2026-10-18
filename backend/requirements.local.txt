@@ -1,0 +1,31 @@
+# 本机（Windows + Python 3.13）专用安装清单，内容与 backend/requirements.txt 一致，
+# 唯一差异：pydantic-settings 从 ==2.7.0 放开为 >=2.10.1。
+#
+# 原因：langchain-community 0.4.1 要求 pydantic-settings >= 2.10.1，
+# 与 requirements.txt 里写死的 pydantic-settings==2.7.0 冲突，pip 依赖解析直接失败（ResolutionImpossible）。
+# 原文件保持不动，避免影响课程仓库的原始内容。
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.4
+pydantic-settings>=2.10.1
+SQLAlchemy==2.0.36
+psycopg[binary]==3.2.3
+pgvector==0.3.6
+pymilvus>=2.5.0
+alembic==1.14.0
+httpx==0.28.1
+langchain==1.2.17
+langchain-community==0.4.1
+langgraph==1.1.10
+langchain-openai==1.2.1
+ragas==0.4.3
+openai==2.53.0
+datasets>=3.0.0
+python-dotenv==1.0.1
+PyYAML==6.0.3
+cryptography==44.0.0
+python-multipart==0.0.20
+pypdf>=5.1.0
+python-docx>=1.1.2
+pytest==8.3.4
+pytest-asyncio==0.25.0
